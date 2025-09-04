@@ -1,5 +1,17 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseBoolPipe,
+  ParseIntPipe,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
+import { CreatePropertyDto } from './dto/createProperty.dto';
 import { PropertyService } from './property.service';
+import { ParseIdPipe } from './pipes/parseIdPipe';
 
 @Controller('/properties')
 export class PropertyController {
@@ -11,13 +23,30 @@ export class PropertyController {
   }
 
   @Get(':id')
-  getPropertyById(@Param('id') id: number) {
+  getPropertyById(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('isVerified', ParseBoolPipe) isVerified: boolean,
+  ) {
+    console.log('Is Verified:', isVerified);
     return this.propertyService.getPropertyById(id);
   }
 
   @Post()
-  createProperty(@Body() body: any) {
+  // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+  createProperty(
+    @Body()
+    body: CreatePropertyDto,
+  ) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     return { message: 'Property created', data: body };
+  }
+
+  @Put(':id')
+  updateProperty(
+    @Param('id', ParseIdPipe) id: number,
+    @Body() body: Partial<CreatePropertyDto>,
+  ) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    return { message: `Property ${id} updated`, data: body };
   }
 }
