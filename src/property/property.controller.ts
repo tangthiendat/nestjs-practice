@@ -8,13 +8,12 @@ import {
   Post,
   Put,
   Query,
-  UsePipes,
 } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/createProperty.dto';
-import { PropertyService } from './property.service';
+import { HeadersDto } from './dto/headers.dto';
 import { ParseIdPipe } from './pipes/parseIdPipe';
-import { ZodValidationPipe } from './pipes/zodValidationPipe';
-import { CreatePropertySchema } from './dto/createPropertyZod.dto';
+import { RequestHeader } from './pipes/request-header';
+import { PropertyService } from './property.service';
 
 @Controller('/properties')
 export class PropertyController {
@@ -37,7 +36,7 @@ export class PropertyController {
   @Post()
   // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })))
   createProperty(
-    @Body(new ZodValidationPipe(CreatePropertySchema))
+    @Body()
     body: CreatePropertyDto,
   ) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -47,9 +46,10 @@ export class PropertyController {
   @Put(':id')
   updateProperty(
     @Param('id', ParseIdPipe) id: number,
-    @Body() body: Partial<CreatePropertyDto>,
+    @Body() body: CreatePropertyDto,
+    @RequestHeader(HeadersDto) headers: HeadersDto,
   ) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    return { message: `Property ${id} updated`, data: body };
+    return { message: `Property ${id} updated`, data: body, headers };
   }
 }
