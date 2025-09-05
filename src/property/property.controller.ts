@@ -8,10 +8,13 @@ import {
   Post,
   Put,
   Query,
+  UsePipes,
 } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/createProperty.dto';
 import { PropertyService } from './property.service';
 import { ParseIdPipe } from './pipes/parseIdPipe';
+import { ZodValidationPipe } from './pipes/zodValidationPipe';
+import { CreatePropertySchema } from './dto/createPropertyZod.dto';
 
 @Controller('/properties')
 export class PropertyController {
@@ -32,9 +35,9 @@ export class PropertyController {
   }
 
   @Post()
-  // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+  // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })))
   createProperty(
-    @Body()
+    @Body(new ZodValidationPipe(CreatePropertySchema))
     body: CreatePropertyDto,
   ) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
