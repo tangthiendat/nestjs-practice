@@ -12,26 +12,40 @@ import { CreatePropertyDto } from './dto/createProperty.dto';
 import { UpdatePropertyDto } from './dto/updateProperty.dto';
 import { ParseIdPipe } from './pipes/parseIdPipe';
 import { PropertyService } from './property.service';
+import { ApiOperation } from '@nestjs/swagger';
+import { Property } from 'src/entities/property.entity';
 
 @Controller('/properties')
 export class PropertyController {
   constructor(private readonly propertyService: PropertyService) {}
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all properties',
+    description: 'Retrieves a list of all properties.',
+  })
   getAllProperties() {
     return this.propertyService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get property by ID',
+    description: 'Retrieves a property by its unique ID.',
+  })
   getPropertyById(
     @Param('id', ParseIntPipe) id: number,
     // @Query('isVerified', ParseBoolPipe) isVerified: boolean,
-  ) {
+  ): Promise<Property> {
     // console.log('Is Verified:', isVerified);
     return this.propertyService.findOne(id);
   }
 
   @Post()
+  @ApiOperation({
+    summary: 'Create a new property',
+    description: 'Creates a new property with the provided details.',
+  })
   createProperty(
     @Body()
     body: CreatePropertyDto,
@@ -40,6 +54,10 @@ export class PropertyController {
   }
 
   @Patch(':id')
+  @ApiOperation({
+    summary: 'Update an existing property',
+    description: 'Updates the details of an existing property by ID.',
+  })
   updateProperty(
     @Param('id', ParseIdPipe) id: number,
     @Body() body: UpdatePropertyDto,
@@ -49,6 +67,10 @@ export class PropertyController {
   }
 
   @Delete(':id')
+  @ApiOperation({
+    summary: 'Delete a property',
+    description: 'Deletes a property by its ID.',
+  })
   deleteProperty(@Param('id', ParseIdPipe) id: number) {
     return this.propertyService.delete(id);
   }
