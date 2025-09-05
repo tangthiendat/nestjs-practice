@@ -1,4 +1,4 @@
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions.js';
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 export const pgConfig: PostgresConnectionOptions = {
   type: 'postgres',
@@ -8,5 +8,5 @@ export const pgConfig: PostgresConnectionOptions = {
   username: 'postgres',
   password: '123456',
   synchronize: true,
-  entities: [__dirname + '/entities/*.entity{.ts,.js}'],
+  entities: ['dist/**/*.entity{.ts,.js}'],
 };

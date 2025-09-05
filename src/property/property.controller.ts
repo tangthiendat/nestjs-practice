@@ -1,18 +1,16 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
-  ParseBoolPipe,
   ParseIntPipe,
+  Patch,
   Post,
-  Put,
-  Query,
 } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/createProperty.dto';
-import { HeadersDto } from './dto/headers.dto';
+import { UpdatePropertyDto } from './dto/updateProperty.dto';
 import { ParseIdPipe } from './pipes/parseIdPipe';
-import { RequestHeader } from './pipes/request-header';
 import { PropertyService } from './property.service';
 
 @Controller('/properties')
@@ -21,35 +19,37 @@ export class PropertyController {
 
   @Get()
   getAllProperties() {
-    return this.propertyService.getAllProperties();
+    return this.propertyService.findAll();
   }
 
   @Get(':id')
   getPropertyById(
     @Param('id', ParseIntPipe) id: number,
-    @Query('isVerified', ParseBoolPipe) isVerified: boolean,
+    // @Query('isVerified', ParseBoolPipe) isVerified: boolean,
   ) {
-    console.log('Is Verified:', isVerified);
-    return this.propertyService.getPropertyById(id);
+    // console.log('Is Verified:', isVerified);
+    return this.propertyService.findOne(id);
   }
 
   @Post()
-  // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })))
   createProperty(
     @Body()
     body: CreatePropertyDto,
   ) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    return { message: 'Property created', data: body };
+    return this.propertyService.create(body);
   }
 
-  @Put(':id')
+  @Patch(':id')
   updateProperty(
     @Param('id', ParseIdPipe) id: number,
-    @Body() body: CreatePropertyDto,
-    @RequestHeader(HeadersDto) headers: HeadersDto,
+    @Body() body: UpdatePropertyDto,
+    // @RequestHeader(HeadersDto) headers: HeadersDto,
   ) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    return { message: `Property ${id} updated`, data: body, headers };
+    return this.propertyService.update(id, body);
+  }
+
+  @Delete(':id')
+  deleteProperty(@Param('id', ParseIdPipe) id: number) {
+    return this.propertyService.delete(id);
   }
 }
