@@ -15,7 +15,7 @@ import { PropertyService } from './property.service';
       useValue: new ValidationPipe({
         whitelist: true,
         forbidNonWhitelisted: true,
-        transform: true,
+        transform: true, // 👈 REQUIRED for @Type to work
         transformOptions: {
           enableImplicitConversion: true,
         },

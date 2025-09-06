@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/createProperty.dto';
 import { UpdatePropertyDto } from './dto/updateProperty.dto';
@@ -14,6 +15,7 @@ import { ParseIdPipe } from './pipes/parseIdPipe';
 import { PropertyService } from './property.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { Property } from 'src/entities/property.entity';
+import { PaginationDto } from './dto/pagination.dto';
 
 @Controller('/properties')
 export class PropertyController {
@@ -24,8 +26,8 @@ export class PropertyController {
     summary: 'Get all properties',
     description: 'Retrieves a list of all properties.',
   })
-  getAllProperties() {
-    return this.propertyService.findAll();
+  getAllProperties(@Query() paginationDto: PaginationDto) {
+    return this.propertyService.findAll(paginationDto);
   }
 
   @Get(':id')
