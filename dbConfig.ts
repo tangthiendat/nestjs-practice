@@ -1,3 +1,4 @@
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 export const pgConfig: PostgresConnectionOptions = {
@@ -8,5 +9,6 @@ export const pgConfig: PostgresConnectionOptions = {
   username: 'postgres',
   password: '123456',
   synchronize: true,
+  namingStrategy: new SnakeNamingStrategy(),
   entities: ['dist/**/*.entity{.ts,.js}'],
 };
