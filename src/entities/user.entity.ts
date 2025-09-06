@@ -2,6 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -33,4 +35,12 @@ export class User {
 
   @OneToMany(() => Property, (property) => property.user)
   properties: Property[];
+
+  @ManyToMany(() => Property, (property) => property.likedByUsers)
+  @JoinTable({
+    name: 'user_liked_properties',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'property_id', referencedColumnName: 'id' },
+  })
+  likedProperties: Property[];
 }
