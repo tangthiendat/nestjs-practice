@@ -1,5 +1,9 @@
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import { Property } from './src/entities/property.entity';
+import { User } from './src/entities/user.entity';
+import { PropertyType } from './src/entities/propertyType.entity';
+import { PropertyFeature } from './src/entities/propertyFeature.entity';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 export const pgConfig: PostgresConnectionOptions = {
   type: 'postgres',
@@ -10,5 +14,5 @@ export const pgConfig: PostgresConnectionOptions = {
   password: '123456',
   synchronize: true,
   namingStrategy: new SnakeNamingStrategy(),
-  entities: ['dist/**/*.entity{.ts,.js}'],
+  entities: [Property, User, PropertyType, PropertyFeature],
 };
