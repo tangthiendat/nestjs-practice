@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { buildPaginationCriteria } from 'src/common/utils/pagination.utils';
 import { Repository } from 'typeorm';
 import { Property } from '../entities/property.entity';
-import { CreatePropertyDto } from './dto/createProperty.dto';
+import { CreatePropertyDto } from './dto/create-property.dto';
 import { PaginationDto } from './dto/pagination.dto';
-import { UpdatePropertyDto } from './dto/updateProperty.dto';
+import { UpdatePropertyDto } from './dto/update-property.dto';
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
