@@ -7,9 +7,9 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { PropertyFeature } from './propertyFeature.entity';
+import { PropertyFeature } from './property-feature.entity';
 import { User } from './user.entity';
-import { PropertyType } from './propertyType.entity';
+import { PropertyType } from './property-type.entity';
 
 @Entity({ name: 'properties' })
 export class Property {

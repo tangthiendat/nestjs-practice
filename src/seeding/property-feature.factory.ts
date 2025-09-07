@@ -1,4 +1,4 @@
-import { PropertyFeature } from '../entities/propertyFeature.entity';
+import { PropertyFeature } from '../entities/property-feature.entity';
 import { setSeederFactory } from 'typeorm-extension';
 
 export const PropertyFeatureFactory = setSeederFactory(

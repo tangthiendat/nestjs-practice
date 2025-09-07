@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Property } from '../entities/property.entity';
-import { PropertyFeature } from '../entities/propertyFeature.entity';
-import { PropertyType } from '../entities/propertyType.entity';
+import { PropertyFeature } from '../entities/property-feature.entity';
+import { PropertyType } from '../entities/property-type.entity';
 import { User } from '../entities/user.entity';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';

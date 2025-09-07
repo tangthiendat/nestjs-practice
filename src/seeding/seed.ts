@@ -3,9 +3,9 @@ import { runSeeders, SeederOptions } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
 import { MainSeeder } from './main.seeder';
 import { PropertyFactory } from './property.factory';
-import { PropertyFeatureFactory } from './propertyFeature.factory';
 import { UserFactory } from './user.factory';
 import dbConfig from 'src/config/db.config';
+import { PropertyFeatureFactory } from './property-feature.factory';
 
 const options: DataSourceOptions & SeederOptions = {
   ...dbConfig(),
